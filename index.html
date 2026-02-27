@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="th" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คำเตือนก่อนเข้าลิงค์</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Prompt', sans-serif; }
+    
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
+      50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    
+    @keyframes countdown-ring {
+      from { stroke-dashoffset: 283; }
+      to { stroke-dashoffset: 0; }
+    }
+    
+    .warning-icon { animation: float 3s ease-in-out infinite; }
+    .pulse-button { animation: pulse-glow 2s ease-in-out infinite; }
+    
+    .shimmer-text {
+      background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 25%, #fcd34d 50%, #f59e0b 75%, #fbbf24 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+    
+    .countdown-circle {
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      transform: rotate(-90deg);
+      transform-origin: center;
+    }
+    
+    .countdown-active .countdown-circle {
+      animation: countdown-ring 10s linear forwards;
+    }
+    
+    .glass-card {
+      background: rgba(30, 30, 46, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+    body { box-sizing: border-box; }
+  </style>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0f0f1a 100%);">
+   <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-yellow-500/5 rounded-full blur-3xl"></div>
+   </div>
+   
+   <div class="relative z-10 min-h-full flex items-center justify-center p-6">
+    <div class="glass-card rounded-3xl p-8 md:p-12 max-w-2xl w-full shadow-2xl">
+     <div class="warning-icon flex justify-center mb-8">
+      <div class="relative">
+       <svg class="w-24 h-24 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+       </svg>
+       <div class="absolute inset-0 bg-amber-400/20 blur-xl rounded-full"></div>
+      </div>
+     </div>
+     
+     <h1 class="shimmer-text text-3xl md:text-4xl font-bold text-center mb-6">⚠️ คำเตือนจากตอนตัดต่อ อ่านด้วยคุณบอร์ด</h1>
+     
+     <div class="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8">
+      <p class="text-gray-200 text-lg leading-relaxed text-center">เนื่องจากเสียงสัมภาษณ์ครูคนแรกมันเบามากไม่สามารถทำให้ดังได้กว่านี้แล้ว มีแค่นี้มั้ง นึกไม่ออก อยากจะเพิ่มอะไรก็ทักมานะจ๊ะ IG:punyapat_an</p>
+     </div>
+     
+     <div class="flex flex-col items-center mb-8">
+      <p class="text-gray-400 mb-4">กรุณารอสักครู่...</p>
+      <div id="countdown-container" class="relative w-32 h-32 countdown-active">
+       <svg class="w-full h-full" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#334155" stroke-width="6" /> 
+        <circle class="countdown-circle" cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="6" stroke-linecap="round" /> 
+        <defs>
+         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fbbf24" />
+          <stop offset="50%" stop-color="#f59e0b" />
+          <stop offset="100%" stop-color="#d97706" />
+         </linearGradient>
+        </defs>
+       </svg>
+       <div class="absolute inset-0 flex items-center justify-center">
+        <span id="countdown-number" class="text-4xl font-bold text-amber-400">10</span>
+       </div>
+      </div>
+     </div>
+     
+     <div class="flex flex-col gap-4">
+      <a id="proceed-button" href="https://drive.google.com/file/d/1ZgeKGbwkywSAZ_mPQJngH-Ko4ZrSFtZ4/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold text-lg rounded-full opacity-50 cursor-not-allowed pointer-events-none transition-all duration-300"> 
+       <span id="button-text">กรุณารอ...</span>
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+       </svg>
+      </a> 
+      
+      <a href="https://www.instagram.com/punyapat_an?igsh=aGRiOHFzYjRiNW90&utm_source=qr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg">
+       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.646.069 4.85 0 3.204-.012 3.584-.069 4.85-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.015-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.979-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.322a1.44 1.44 0 110-2.881 1.44 1.44 0 010 2.881z" />
+       </svg> ติดต่อ Instagram 
+      </a>
+     </div>
+     
+     <p class="text-gray-500 text-sm text-center mt-8">💡 ปุ่มจะเปิดใช้งานหลังจากนับถอยหลังเสร็จสิ้น</p>
+    </div>
+   </div>
+  </div>
+
+  <script>
+    // ⚠️ นำ Web App URL ที่ได้จาก Google Apps Script มาวางในเครื่องหมายคำพูดด้านล่างนี้
+    const API_URL = 'ใส่_URL_ของ_WEB_APP_ที่นี่';
+
+    // --- ระบบส่งข้อมูลไปบันทึกที่ Google Sheet ---
+    function logEvent(eventName) {
+      if (API_URL === 'ใส่_URL_ของ_WEB_APP_ที่นี่') {
+        console.warn('ยังไม่ได้ใส่ API URL ทำให้ไม่สามารถบันทึกข้อมูลได้');
+        return;
+      }
+
+      const payload = {
+        event: eventName,
+        userAgent: navigator.userAgent
+      };
+      
+      // ส่งข้อมูลผ่าน fetch แบบไม่เช็ค CORS (fire-and-forget) เพื่อความรวดเร็ว
+      fetch(API_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        }
+      }).then(() => {
+        console.log('ส่งข้อมูลไปยัง Sheet สำเร็จ:', eventName);
+      }).catch(err => {
+        console.error('เกิดข้อผิดพลาดในการส่งข้อมูล:', err);
+      });
+    }
+
+    // 1. บันทึกเมื่อโหลดหน้าเว็บ
+    window.addEventListener('load', function() {
+      logEvent('Page Loaded - เข้าชมหน้าเว็บ');
+    });
+
+    // 2. บันทึกเมื่อกดปุ่ม
+    document.getElementById('proceed-button').addEventListener('click', function() {
+      logEvent('Clicked Proceed - กดยืนยันเข้าลิงก์ Drive');
+    });
+
+    // --- ระบบนับถอยหลัง (Countdown) ---
+    let countdown = 10;
+    
+    function startCountdown() {
+      const countdownNumber = document.getElementById('countdown-number');
+      const proceedButton = document.getElementById('proceed-button');
+      const buttonText = document.getElementById('button-text');
+      
+      const countdownInterval = setInterval(() => {
+        countdown--;
+        countdownNumber.textContent = countdown;
+        
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          
+          proceedButton.classList.remove('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
+          proceedButton.classList.add('pulse-button', 'hover:scale-105', 'hover:shadow-lg');
+          buttonText.textContent = 'ดำเนินการต่อ';
+          
+          countdownNumber.textContent = '✓';
+          countdownNumber.classList.add('text-green-400');
+        }
+      }, 1000);
+    }
+
+    startCountdown();
+  </script>
+ </body>
+</html>
