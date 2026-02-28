@@ -3,195 +3,160 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>คำเตือนก่อนเข้าลิงค์</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>File Notice</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { font-family: 'Prompt', sans-serif; }
-    
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
-      50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); }
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    @keyframes shimmer {
-      0% { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
-    
-    @keyframes countdown-ring {
-      from { stroke-dashoffset: 283; }
-      to { stroke-dashoffset: 0; }
-    }
-    
-    .warning-icon { animation: float 3s ease-in-out infinite; }
-    .pulse-button { animation: pulse-glow 2s ease-in-out infinite; }
-    
+    * { font-family: 'Kanit', 'Prompt', sans-serif; }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(147, 51, 234, 0.4); } 50% { box-shadow: 0 0 40px rgba(147, 51, 234, 0.8); } }
+    @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .float-animation { animation: float 3s ease-in-out infinite; }
+    .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
     .shimmer-text {
-      background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 25%, #fcd34d 50%, #f59e0b 75%, #fbbf24 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 3s linear infinite;
+      background: linear-gradient(90deg, #a855f7, #ec4899, #f97316, #ec4899, #a855f7);
+      background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite;
     }
-    
-    .countdown-circle {
-      stroke-dasharray: 283;
-      stroke-dashoffset: 283;
-      transform: rotate(-90deg);
-      transform-origin: center;
+    .gradient-border { position: relative; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%); border-radius: 24px; }
+    .gradient-border::before {
+      content: ''; position: absolute; inset: -3px;
+      background: linear-gradient(45deg, #a855f7, #ec4899, #f97316, #eab308, #a855f7);
+      border-radius: 27px; z-index: -1; animation: spin-slow 4s linear infinite;
     }
-    
-    .countdown-active .countdown-circle {
-      animation: countdown-ring 10s linear forwards;
-    }
-    
-    .glass-card {
-      background: rgba(30, 30, 46, 0.8);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(251, 191, 36, 0.2);
-    }
-    body { box-sizing: border-box; }
+    .glass-card { background: rgba(30, 27, 75, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(168, 85, 247, 0.3); }
+    .countdown-ring { stroke-dasharray: 283; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear; }
+    .btn-ready { background: linear-gradient(135deg, #a855f7, #ec4899); transform: scale(1.05); }
   </style>
  </head>
- <body class="h-full">
-  <div id="app-wrapper" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0f0f1a 100%);">
+ <body class="h-full overflow-auto bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
+  <div class="min-h-full w-full relative">
    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute top-20 left-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-20 right-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-yellow-500/5 rounded-full blur-3xl"></div>
+    <div class="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl"></div>
    </div>
-   
-   <div class="relative z-10 min-h-full flex items-center justify-center p-6">
-    <div class="glass-card rounded-3xl p-8 md:p-12 max-w-2xl w-full shadow-2xl">
-     <div class="warning-icon flex justify-center mb-8">
-      <div class="relative">
-       <svg class="w-24 h-24 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-       </svg>
-       <div class="absolute inset-0 bg-amber-400/20 blur-xl rounded-full"></div>
+
+   <div class="relative z-10 flex flex-col items-center justify-center min-h-full px-4 py-8">
+    
+    <div class="flex items-center justify-center gap-4 mb-8 float-animation">
+      <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/10 overflow-hidden flex items-center justify-center border border-white/20 shadow-lg shadow-purple-500/30">
+        <img src="https://scontent.fkkc3-1.fna.fbcdn.net/v/t39.30808-6/642768993_1941877609748834_2263063250765183521_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_ohc=zYEj8N644KoQ7kNvwEWGI3a&_nc_oc=AdmlInMB5nE7eKoeYcbVBZaQ8dVC1YR60Q8sOgkh55L_2S0eUirMN-JvpRFp-D5Pp0s&_nc_zt=23&_nc_ht=scontent.fkkc3-1.fna&_nc_gid=nSWK6SUvzqaOygk2vcSyzQ&_nc_ss=8&oh=00_AfuxbGpyiELl2bLdxejMOTJnvQOjgOwOvkE9nC1pdqyBsw&oe=69A8656B" alt="Logo 1" class="w-full h-full object-cover">
       </div>
-     </div>
-     
-     <h1 class="shimmer-text text-3xl md:text-4xl font-bold text-center mb-6">⚠️ คำเตือนจากตอนตัดต่อ อ่านด้วยคุณบอร์ด</h1>
-     
-     <div class="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8">
-      <p class="text-gray-200 text-lg leading-relaxed text-center">เนื่องจากเสียงสัมภาษณ์ครูคนแรกมันเบามากไม่สามารถทำให้ดังได้กว่านี้แล้ว มีแค่นี้มั้ง นึกไม่ออก อยากจะเพิ่มอะไรก็ทักมานะจ๊ะ IG:punyapat_an</p>
-     </div>
-     
-     <div class="flex flex-col items-center mb-8">
-      <p class="text-gray-400 mb-4">กรุณารอสักครู่...</p>
-      <div id="countdown-container" class="relative w-32 h-32 countdown-active">
-       <svg class="w-full h-full" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="45" fill="none" stroke="#334155" stroke-width="6" /> 
-        <circle class="countdown-circle" cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="6" stroke-linecap="round" /> 
-        <defs>
-         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#fbbf24" />
-          <stop offset="50%" stop-color="#f59e0b" />
-          <stop offset="100%" stop-color="#d97706" />
-         </linearGradient>
-        </defs>
-       </svg>
-       <div class="absolute inset-0 flex items-center justify-center">
-        <span id="countdown-number" class="text-4xl font-bold text-amber-400">10</span>
+      <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 overflow-hidden flex items-center justify-center border-2 border-pink-500 shadow-xl shadow-pink-500/40 pulse-glow">
+        <img src="https://scontent.fkkc3-1.fna.fbcdn.net/v/t39.30808-6/642355807_1941877579748837_136105529239050778_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=7b2446&_nc_ohc=kUoV0ShR7fIQ7kNvwGDER3t&_nc_oc=Adm2ZJBHyCBRkAiy17c-A-do5yysWtRHPOpRHDzQ5bNuLOHC3dXYV3kdvyLGeqrHHaw&_nc_zt=23&_nc_ht=scontent.fkkc3-1.fna&_nc_gid=N1dpVoag_NU39Z8bje0fbg&_nc_ss=8&oh=00_AfvbLM-rXHDemmRjXpvBM2vWQNFvEULMef4dV6SVq_oJwA&oe=69A864EB" alt="Logo 2" class="w-full h-full object-cover">
+      </div>
+      <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/10 overflow-hidden flex items-center justify-center border border-white/20 shadow-lg shadow-orange-500/30">
+        <img src="https://scontent.fkkc3-1.fna.fbcdn.net/v/t39.30808-6/642363058_1941877593082169_2123318853067314031_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=7b2446&_nc_ohc=LyXCWCf4NfYQ7kNvwEiK4Gu&_nc_oc=AdkXG3Agfqo9qVrJG_y4KTmz1Kyi77q6AceN7IJmluD6JRLql3geoAxIrkO_gUK9LVA&_nc_zt=23&_nc_ht=scontent.fkkc3-1.fna&_nc_gid=WerM0h9Nr5IarBcZKsMUAw&_nc_ss=8&oh=00_Aftdk7d1X1opIrfOlHSw7Ipua3AM24xig6dqS6-EKYD5ug&oe=69A867BC" alt="Logo 3" class="w-full h-full object-cover">
+      </div>
+    </div>
+
+    <div class="gradient-border w-full max-w-2xl">
+     <div class="glass-card rounded-3xl p-6 md:p-10">
+      <div class="text-center mb-8">
+       <h1 class="text-3xl md:text-4xl font-bold shimmer-text mb-2">จากตอนตัดต่อ</h1>
+       <p class="text-purple-300 text-lg md:text-xl font-medium">อ่านด้วยคุณบอร์ด</p>
+      </div>
+
+      <div class="bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-2xl p-5 md:p-6 mb-8 border border-purple-500/30">
+       <div class="flex items-start gap-4">
+        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center">
+         <svg class="w-7 h-7 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" /></svg>
+        </div>
+        <div class="flex-1">
+         <h3 class="text-yellow-400 font-semibold text-lg mb-2">📢 หมายเหตุสำคัญ</h3>
+         <p class="text-gray-200 text-sm md:text-base">เสียงสัมภาษณ์ครูคนแรกค่อนข้างเบามาก ปรับดังสุดแล้วได้เท่านี้ครับ 🎧</p>
+        </div>
        </div>
       </div>
+
+      <div class="flex flex-col items-center mb-8">
+       <div class="relative w-28 h-28 md:w-32 md:h-32">
+        <svg class="w-full h-full transform -rotate-90">
+          <circle cx="50%" cy="50%" r="45" fill="none" stroke="rgba(147, 51, 234, 0.2)" stroke-width="8" />
+          <circle id="progressRing" class="countdown-ring" cx="50%" cy="50%" r="45" fill="none" stroke="url(#gradient)" stroke-width="8" stroke-linecap="round" />
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a855f7" /><stop offset="50%" stop-color="#ec4899" /><stop offset="100%" stop-color="#f97316" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span id="countdownNumber" class="text-4xl md:text-5xl font-bold text-white">10</span>
+        </div>
+       </div>
+      </div>
+
+      <button id="mainButton" disabled class="w-full py-4 px-6 rounded-2xl bg-gray-700 text-gray-400 font-semibold text-lg md:text-xl transition-all duration-500 cursor-not-allowed">
+       <span id="buttonText">กรุณารอสักครู่...</span>
+      </button>
+
+      <div class="mt-8 text-center">
+        <a href="https://www.instagram.com/punyapat_an" target="_blank" class="text-purple-400 hover:text-pink-400 transition-colors text-sm">
+          IG: @punyapat_an
+        </a>
+      </div>
      </div>
-     
-     <div class="flex flex-col gap-4">
-      <a id="proceed-button" href="https://drive.google.com/file/d/1fyj5fXJHa8mjTpDk7nwCdTTGYNeeeMnN/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold text-lg rounded-full opacity-50 cursor-not-allowed pointer-events-none transition-all duration-300"> 
-       <span id="button-text">กรุณารอ...</span>
-       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-       </svg>
-      </a> 
-      
-      <a href="https://www.instagram.com/punyapat_an?igsh=aGRiOHFzYjRiNW90&utm_source=qr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg">
-       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.646.069 4.85 0 3.204-.012 3.584-.069 4.85-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.015-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.979-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.322a1.44 1.44 0 110-2.881 1.44 1.44 0 010 2.881z" />
-       </svg> ติดต่อ Instagram 
-      </a>
-     </div>
-     
-     <p class="text-gray-500 text-sm text-center mt-8">💡 ปุ่มจะเปิดใช้งานหลังจากนับถอยหลังเสร็จสิ้น</p>
     </div>
    </div>
   </div>
 
   <script>
-    // ⚠️ นำ Web App URL ที่ได้จาก Google Apps Script มาวางในเครื่องหมายคำพูดด้านล่างนี้
-    const API_URL = 'ใส่_URL_ของ_WEB_APP_ที่นี่';
-
-    // --- ระบบส่งข้อมูลไปบันทึกที่ Google Sheet ---
-    function logEvent(eventName) {
-      if (API_URL === 'ใส่_URL_ของ_WEB_APP_ที่นี่') {
-        console.warn('ยังไม่ได้ใส่ API URL ทำให้ไม่สามารถบันทึกข้อมูลได้');
-        return;
-      }
-
-      const payload = {
-        event: eventName,
-        userAgent: navigator.userAgent
-      };
-      
-      // ส่งข้อมูลผ่าน fetch แบบไม่เช็ค CORS (fire-and-forget) เพื่อความรวดเร็ว
-      fetch(API_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify(payload),
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        }
-      }).then(() => {
-        console.log('ส่งข้อมูลไปยัง Sheet สำเร็จ:', eventName);
-      }).catch(err => {
-        console.error('เกิดข้อผิดพลาดในการส่งข้อมูล:', err);
-      });
-    }
-
-    // 1. บันทึกเมื่อโหลดหน้าเว็บ
-    window.addEventListener('load', function() {
-      logEvent('Page Loaded - เข้าชมหน้าเว็บ');
-    });
-
-    // 2. บันทึกเมื่อกดปุ่ม
-    document.getElementById('proceed-button').addEventListener('click', function() {
-      logEvent('Clicked Proceed - กดยืนยันเข้าลิงก์ Drive');
-    });
-
-    // --- ระบบนับถอยหลัง (Countdown) ---
+    const destinationUrl = 'https://drive.google.com/file/d/1CId_FfPJmIFWpsKBsvulwFzpS0K6gYjY/view?usp=sharing';
     let countdown = 10;
-    
+    let countdownInterval;
+
     function startCountdown() {
-      const countdownNumber = document.getElementById('countdown-number');
-      const proceedButton = document.getElementById('proceed-button');
-      const buttonText = document.getElementById('button-text');
-      
-      const countdownInterval = setInterval(() => {
+      const progressRing = document.getElementById('progressRing');
+      const countdownNumber = document.getElementById('countdownNumber');
+      const circumference = 2 * Math.PI * 45;
+      progressRing.style.strokeDasharray = circumference;
+
+      countdownInterval = setInterval(() => {
         countdown--;
         countdownNumber.textContent = countdown;
-        
+        progressRing.style.strokeDashoffset = circumference - (countdown / 10) * circumference;
+
         if (countdown <= 0) {
           clearInterval(countdownInterval);
-          
-          proceedButton.classList.remove('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
-          proceedButton.classList.add('pulse-button', 'hover:scale-105', 'hover:shadow-lg');
-          buttonText.textContent = 'ดำเนินการต่อ';
-          
-          countdownNumber.textContent = '✓';
-          countdownNumber.classList.add('text-green-400');
+          enableButton();
         }
       }, 1000);
     }
 
-    startCountdown();
+    function enableButton() {
+      const btn = document.getElementById('mainButton');
+      const txt = document.getElementById('buttonText');
+      btn.disabled = false;
+      btn.classList.remove('bg-gray-700', 'text-gray-400', 'cursor-not-allowed');
+      btn.classList.add('btn-ready', 'text-white', 'cursor-pointer', 'shadow-lg', 'shadow-purple-500/30');
+      txt.textContent = 'เข้าดูไฟล์งาน';
+      document.getElementById('countdownNumber').innerHTML = '✓';
+      
+      btn.onclick = () => {
+        txt.textContent = 'กำลังบันทึกข้อมูล...';
+        const payload = JSON.stringify({
+          action: "Open File",
+          pageTitle: document.title,
+          status: "Success"
+        });
+
+        // บันทึกข้อมูลไปยัง Sheets ก่อนเปิดลิงก์
+        google.script.run
+          .withSuccessHandler(() => {
+            window.open(destinationUrl, '_blank');
+            txt.textContent = 'เข้าดูไฟล์งาน';
+          })
+          .withFailureHandler(() => {
+            window.open(destinationUrl, '_blank'); // เปิดไฟล์แม้บันทึกไม่สำเร็จ
+          })
+          .recordInteraction(payload);
+      };
+    }
+
+    window.onload = startCountdown;
   </script>
  </body>
 </html>
